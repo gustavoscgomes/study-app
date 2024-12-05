@@ -37,8 +37,59 @@ O **Study App** é um aplicativo para gerenciamento de cartões de estudo, permi
 
 ```plaintext
 src/
-├── components/           # Componentes reutilizáveis
+├── config/               # Configuração do Firebase
 ├── contexts/             # Context API (Auth, Cartões)
 ├── screens/              # Telas principais do app
-├── config/               # Configuração do Firebase
-├── App.js                # Arquivo principal do aplicativo
+```
+---
+
+## ⚙️ Pré-requisitos
+
+Certifique-se de ter instalado:
+
+- [Node.js](https://nodejs.org/)
+- [Expo CLI](https://expo.dev/)
+- [Android Studio](https://developer.android.com/studio) ou um dispositivo físico Android
+- [Firebase](https://firebase.google.com/)
+
+---
+
+## 🔧 Configuração do Firebase
+
+1. Crie um projeto no [Firebase](https://console.firebase.google.com/).
+2. Ative os serviços **Authentication** e **Firestore**.
+3. Configure as [Regras do Firestore](https://firebase.google.com/docs/firestore/security/get-started):
+   ```json
+   rules_version = '2';
+
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /cartoes/{document} {
+         allow read, write: if request.auth != null;
+       }
+     }
+   }
+   ```
+4. **Crie o arquivo `.env` na raiz do projeto e adicione as credenciais**:
+   ```env
+   FIREBASE_API_KEY=SEU_API_KEY
+   FIREBASE_AUTH_DOMAIN=SEU_AUTH_DOMAIN
+   FIREBASE_PROJECT_ID=SEU_PROJECT_ID
+   FIREBASE_STORAGE_BUCKET=SEU_STORAGE_BUCKET
+   FIREBASE_MESSAGING_SENDER_ID=SEU_MESSAGING_SENDER_ID
+   FIREBASE_APP_ID=SEU_APP_ID
+   ```
+---
+
+## 🚀 Como Rodar o Projeto
+
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/seu-usuario/study-app.git
+   cd study-app
+2. **Instale as dependências**:
+   ```bash
+   npm install
+3. **Inicie o aplicativo**:
+   ```bash
+   npm start
